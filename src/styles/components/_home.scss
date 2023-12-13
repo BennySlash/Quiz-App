@@ -1,3 +1,5 @@
+@import "../base/settings";
+
 #home {
   background-image: url("../../../public/assets/img/home-background.jpg");
   background-size: cover;
@@ -15,10 +17,44 @@
     height: 90%;
     width: 40%;
     border-radius: 10px;
+    // text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   img {
     width: 5rem;
     aspect-ratio: 1;
+    justify-self: center;
+  }
+  h1 {
+    text-align: center;
+    color: $off-white;
+    font-size: $lg;
+  }
+  li {
+    list-style: none;
+  }
+  .play-button-container {
+    text-align: center;
+    width: 100%;
+  }
+  a.play-button {
+    text-decoration: none;
+    background-color: $green;
+    // width: 80%;
+    padding-inline: $xxlg;
+    padding-block: $xs;
+    border-radius: $md;
+    cursor: pointer;
+    color: $off-white;
+    font-size: $sm;
+    font-weight: 700;
+  }
+  .auth-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-around;
   }
 }
