@@ -1,0 +1,24 @@
+#home {
+  background-image: url("../../../public/assets/img/home-background.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  section {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-inline: 2rem;
+    padding-block-start: 2rem;
+    height: 90%;
+    width: 40%;
+    border-radius: 10px;
+  }
+
+  img {
+    width: 5rem;
+    aspect-ratio: 1;
+  }
+}
