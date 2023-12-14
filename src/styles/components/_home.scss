@@ -15,7 +15,7 @@
     padding-inline: 2rem;
     padding-block-start: 2rem;
     height: 90%;
-    width: 40%;
+    // width: 40%;
     border-radius: 10px;
     // text-align: center;
     display: flex;
@@ -24,14 +24,16 @@
   }
 
   img {
-    width: 5rem;
+    width: 8rem;
     aspect-ratio: 1;
     justify-self: center;
+    margin-top: $lg;
   }
   h1 {
     text-align: center;
     color: $off-white;
     font-size: $lg;
+    margin-top: 0;
   }
   li {
     list-style: none;
@@ -39,11 +41,14 @@
   .play-button-container {
     text-align: center;
     width: 100%;
+    display: flex;
+    ul {
+      padding: 0;
+    }
   }
   a.play-button {
     text-decoration: none;
     background-color: $green;
-    // width: 80%;
     padding-inline: $xxlg;
     padding-block: $xs;
     border-radius: $md;
@@ -54,7 +59,27 @@
   }
   .auth-container {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
-    justify-content: space-around;
+
+    text-align: center;
+  }
+
+  #login-button {
+    background-color: red;
+    border-radius: 10px;
+    padding-inline: $xs;
+  }
+  #signup-button {
+    background-color: yellow;
+    border-radius: 10px;
+    padding-inline: $xs;
+  }
+  .auth-container .auth-buttons {
+    color: $off-white;
+    text-decoration: none;
+    padding: $normal;
+    font-size: $sm;
+    cursor: pointer;
   }
 }
