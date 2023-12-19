@@ -5,7 +5,7 @@ const QuizInstruction = () => {
   return (
     <>
       <Helmet>
-        <title>Quiz Instruction - Quiz App</title>
+        <title>Quiz Instruction - Quiz App </title>
       </Helmet>
     </>
   );

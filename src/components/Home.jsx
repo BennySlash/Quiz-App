@@ -1,6 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import {
+  ClassComponent,
+  FunctionalComponent,
+} from "./components/quiz/Test.jsx";
 
 const Home = () => {
   return (
