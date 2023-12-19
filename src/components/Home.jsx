@@ -1,10 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import {
-  ClassComponent,
-  FunctionalComponent,
-} from "./components/quiz/Test.jsx";
+import Play from "./quiz/Play";
 
 const Home = () => {
   return (
@@ -18,10 +15,11 @@ const Home = () => {
             <img src="./assets/img/gebeya-logo.png" alt="gebeya logo" c />
           </div>
           <h1>Quiz App</h1>
+
           <div className="play-button-container">
             <ul>
               <li>
-                <Link className="play-button" to="/play/instructions">
+                <Link className="play-button" to="/play/quiz">
                   Play
                 </Link>
               </li>
