@@ -1,36 +1,117 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import questions from "../../questions.json";
+import isEmpty from "../../utils/is-empty";
 
 class Play extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      questions: questions,
+      currentQuestion: {},
+      nextQuestion: {},
+      previousQuestion: {},
+      answer: "",
+      numberOfQuestions: 0,
+      numberOfAnsweredQuestion: 0,
+      currentQuestionIndex: 0,
+      score: 0,
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      hints: 0,
+      fiftyFifty: 0,
+      usedFiftyFifty: 0,
+      time: {},
+    };
   }
+  componentDidMount() {
+    const { questions, currentQuestion, nextQuestion, previousQuestion } =
+      this.state;
+    this.displayQuestions(
+      questions,
+      currentQuestion,
+      nextQuestion,
+      previousQuestion
+    );
+  }
+  displayQuestions = (
+    questions = this.state.questions,
+    currentQuestion,
+    nextQuestion,
+    previousQuestion
+  ) => {
+    let { currentQuestionIndex } = this.state;
+    if (!isEmpty(this.state.questions)) {
+      questions = this.state.questions;
+      currentQuestion = questions[currentQuestionIndex];
+      nextQuestion = questions[currentQuestionIndex + 1];
+      previousQuestion = questions[currentQuestionIndex - 1];
+      const answer = currentQuestion.answer;
+      this.setState({
+        currentQuestion,
+        nextQuestion,
+        previousQuestion,
+        answer,
+      });
+    }
+  };
 
   render() {
+    const { currentQuestion } = this.state;
+
     return (
       <div>
         <Helmet>
           <title>Quiz Page</title>
         </Helmet>
         <div className="questions">
-          <h5> what is your name?</h5>
-          <div className="options-container">
-            <p className="option">1999</p>
-            <p className="option">1999</p>
+          <div className="lifeline-container">
+            <div className="lifeline">
+              <p>
+                <span className="mdi mdi-set-center mdi-24px lifeline-icon"></span>
+              </p>
+              <p>
+                <span className="mdi mdi-lightbulb-on-outline mdi-24px lifeline-icon"></span>
+              </p>
+            </div>
+            <div className="clock">
+              <p>
+                <span>1 0f 15</span>
+              </p>
+
+              <div>
+                <span>2:15</span>
+                <span className="mdi mdi-clock-outline mdi-24px"></span>
+              </div>
+            </div>
           </div>
-          <div className="options-container">
-            <p className="option">1999</p>
-            <p className="option">1999</p>
+          <h5 className="text-3xl my-8">{currentQuestion.question}</h5>
+          <div className="option">
+            <div className="options-container">
+              <p className="option rounded-md bg-blue-700 p-3 text-lg text-white">
+                {currentQuestion.optionA}
+              </p>
+              <p className="option rounded-md bg-blue-700 p-3 text-lg text-white">
+                {currentQuestion.optionB}
+              </p>
+            </div>
+            <div className="options-container">
+              <p className="option rounded-md bg-blue-700 p-3 text-lg text-white">
+                {currentQuestion.optionC}
+              </p>
+              <p className="option rounded-md bg-blue-700 p-3 text-lg text-white">
+                {currentQuestion.optionD}
+              </p>
+            </div>
           </div>
-          <div className="flex space-x-3 w-fit">
-            <button className="rounded-sm bg-blue-700 p-3 text-lg text-white">
+          <div className="quiz-direction">
+            <button className="direction-key rounded-sm bg-blue-700 p-2 text-sm text-white">
               Previous
             </button>
-            <button className="rounded-sm bg-blue-700 p-3 text-lg text-white">
+            <button className="direction-key rounded-sm bg-green-700 p-2 text-sm text-white">
               Next
             </button>
-            <button className="rounded-sm bg-blue-700 p-3 text-lg text-white">
+            <button className="direction-key rounded-sm bg-red-700 p-2 text-sm text-white">
               Quit
             </button>
           </div>

@@ -42,6 +42,7 @@
     text-align: center;
     width: 100%;
     display: flex;
+    margin-block: $md;
     ul {
       padding: 0;
     }
@@ -69,11 +70,13 @@
     background-color: red;
     border-radius: 10px;
     padding-inline: $xs;
+    padding-block: 10px;
   }
   #signup-button {
     background-color: yellow;
     border-radius: 10px;
     padding-inline: $xs;
+    padding-block: 10px;
   }
   .auth-container .auth-buttons {
     color: $off-white;
