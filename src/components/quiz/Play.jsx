@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import questions from "../../questions.json";
 import isEmpty from "../../utils/is-empty";
+import M from "materialize-css";
 
 class Play extends React.Component {
   constructor(props) {
@@ -56,6 +57,65 @@ class Play extends React.Component {
     }
   };
 
+  handleOptionClick = (e) => {
+    if (
+      e.target.innerHTML.toLowerCase() === this.state.answer.toLocaleLowerCase()
+    ) {
+      this.correctAnswer();
+    } else {
+      this.wrongAnswer();
+    }
+  };
+  correctAnswer = () => {
+    M.toast({
+      html: "Correct Answer!",
+      classes: "toast-valid",
+      displayLength: 1500,
+    });
+
+    this.setState(
+      (prevState) => ({
+        score: prevState.score + 1,
+        correctAnswer: prevState.correctAnswer + 1,
+        currentQuestionIndex: prevState.currentQuestionIndex + 1,
+        numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion + 1,
+      }),
+      () => {
+        this.displayQuestions(
+          this.state.questions,
+          this.currentQuestion,
+          this.state.currentQuestion,
+          this.state.nextQuestion,
+          this.state.previousQuestion
+        );
+      }
+    );
+  };
+  wrongAnswer = () => {
+    navigator.vibrate(1000);
+    M.toast({
+      html: "Wrong Answer!",
+      classes: "toast-invalid",
+      displayLength: 1500,
+    });
+
+    this.setState(
+      (prevState) => ({
+        wrongAnswer: prevState.wrongAnswers + 1,
+        currentQuestionIndex: prevState.currentQuestionIndex + 1,
+        numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion,
+      }),
+      () => {
+        this.displayQuestions(
+          this.state.questions,
+          this.currentQuestion,
+          this.state.currentQuestion,
+          this.state.nextQuestion,
+          this.state.previousQuestion
+        );
+      }
+    );
+  };
   render() {
     const { currentQuestion } = this.state;
 
@@ -88,18 +148,30 @@ class Play extends React.Component {
           <h5 className="text-3xl my-8">{currentQuestion.question}</h5>
           <div className="option">
             <div className="options-container">
-              <p className="option rounded-md bg-blue-700 p-3 text-lg text-white">
+              <p
+                onClick={this.handleOptionClick}
+                className="option rounded-md bg-blue-700 p-3 text-lg text-white"
+              >
                 {currentQuestion.optionA}
               </p>
-              <p className="option rounded-md bg-blue-700 p-3 text-lg text-white">
+              <p
+                onClick={this.handleOptionClick}
+                className="option rounded-md bg-blue-700 p-3 text-lg text-white"
+              >
                 {currentQuestion.optionB}
               </p>
             </div>
             <div className="options-container">
-              <p className="option rounded-md bg-blue-700 p-3 text-lg text-white">
+              <p
+                onClick={this.handleOptionClick}
+                className="option rounded-md bg-blue-700 p-3 text-lg text-white"
+              >
                 {currentQuestion.optionC}
               </p>
-              <p className="option rounded-md bg-blue-700 p-3 text-lg text-white">
+              <p
+                onClick={this.handleOptionClick}
+                className="option rounded-md bg-blue-700 p-3 text-lg text-white"
+              >
                 {currentQuestion.optionD}
               </p>
             </div>
