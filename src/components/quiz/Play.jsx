@@ -79,7 +79,7 @@ class Play extends React.Component {
         correctAnswer: prevState.correctAnswer + 1,
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
         numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion + 1,
-      }),
+      })
       () => {
         this.displayQuestions(
           this.state.questions,
