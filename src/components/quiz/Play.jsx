@@ -3,6 +3,8 @@ import { Helmet } from "react-helmet";
 import questions from "../../questions.json";
 import isEmpty from "../../utils/is-empty";
 import M from "materialize-css";
+// import { BrowserHistory } from "history";
+import { browserHistory } from "../../main";
 
 class Play extends React.Component {
   constructor(props) {
@@ -79,7 +81,7 @@ class Play extends React.Component {
         correctAnswer: prevState.correctAnswer + 1,
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
         numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion + 1,
-      })
+      }),
       () => {
         this.displayQuestions(
           this.state.questions,
@@ -115,6 +117,63 @@ class Play extends React.Component {
         );
       }
     );
+  };
+  handleButtonClick = (e) => {
+    switch (e.target.id) {
+      case "next-button":
+        this.handleNextButton();
+        break;
+      case "previous-button":
+        this.handlePreviousButton();
+        break;
+      case "quit-button":
+        this.handleQuitButton();
+        break;
+      default:
+        break;
+    }
+  };
+
+  handleNextButton = () => {
+    if (this.state.nextQuestion !== undefined) {
+      this.setState(
+        (prevState) => ({
+          currentQuestionIndex: prevState.currentQuestionIndex + 1,
+        }),
+        () => {
+          this.displayQuestions(
+            this.state.state,
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion
+          );
+        }
+      );
+    }
+  };
+  handlePreviousButton = () => {
+    if (this.state.previousQuestion !== undefined) {
+      this.setState(
+        (prevState) => ({
+          currentQuestionIndex: prevState.currentQuestionIndex - 1,
+        }),
+        () => {
+          this.displayQuestions(
+            this.state.state,
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion
+          );
+        }
+      );
+    }
+  };
+
+  handleQuitButton = () => {
+    if (window.confirm("Are you sure you want to Quit?")) {
+      browserHistory.push("/");
+      window.location.reload(false);
+    }
   };
   render() {
     const { currentQuestion } = this.state;
@@ -177,13 +236,25 @@ class Play extends React.Component {
             </div>
           </div>
           <div className="quiz-direction">
-            <button className="direction-key rounded-sm bg-blue-700 p-2 text-sm text-white">
+            <button
+              id="previous-button"
+              onClick={this.handleButtonClick}
+              className="direction-key rounded-sm bg-blue-700 p-2 text-sm text-white"
+            >
               Previous
             </button>
-            <button className="direction-key rounded-sm bg-green-700 p-2 text-sm text-white">
+            <button
+              id="next-button"
+              onClick={this.handleButtonClick}
+              className="direction-key rounded-sm bg-green-700 p-2 text-sm text-white"
+            >
               Next
             </button>
-            <button className="direction-key rounded-sm bg-red-700 p-2 text-sm text-white">
+            <button
+              id="quit-button"
+              onClick={this.handleButtonClick}
+              className="direction-key rounded-sm bg-red-700 p-2 text-sm text-white"
+            >
               Quit
             </button>
           </div>
