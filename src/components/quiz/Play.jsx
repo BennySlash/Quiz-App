@@ -5,7 +5,7 @@ import isEmpty from "../../utils/is-empty";
 import M from "materialize-css";
 // import { BrowserHistory } from "history";
 import { browserHistory } from "../../main";
-import { UseState, useEffect } from "react";
+// import { UseState, useEffect } from "react";
 
 class Play extends React.Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class Play extends React.Component {
       usedFiftyFifty: 0,
       time: {},
     };
+    this.interval = null;
   }
   componentDidMount() {
     const { questions, currentQuestion, nextQuestion, previousQuestion } =
@@ -37,6 +38,7 @@ class Play extends React.Component {
       nextQuestion,
       previousQuestion
     );
+    this.startTimer();
   }
   displayQuestions = (
     questions = this.state.questions,
@@ -176,8 +178,41 @@ class Play extends React.Component {
       window.location.reload(false);
     }
   };
+  startTimer = () => {
+    const countDownTime = Date.now() + 1000000;
+    this.interval = setInterval(() => {
+      const now = new Date();
+      const distance = countDownTime - now;
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (distance < 0) {
+        clearInterval(this.interval);
+        this.setState(
+          {
+            time: {
+              minutes: 0,
+              seconds: 0,
+            },
+          },
+          () => {
+            alert("Quiz has ended!");
+            browserHistory.push("/");
+            window.location.reload(false);
+          }
+        );
+      } else {
+        this.setState({
+          time: {
+            minutes,
+            seconds,
+          },
+        });
+      }
+    }, 1000);
+  };
   render() {
-    const { currentQuestion } = this.state;
+    const { currentQuestion, time, currentQuestionIndex } = this.state;
 
     return (
       <div>
@@ -187,21 +222,26 @@ class Play extends React.Component {
         <div className="questions">
           <div className="lifeline-container">
             <div className="lifeline">
-              <p>
-                <span className="mdi mdi-set-center mdi-24px lifeline-icon"></span>
+              <p className="text-yellow-700 text-lg p-2">
+                {/* <span className="mdi mdi-set-center mdi-24px lifeline-icon"></span> */}
+                Questions
               </p>
-              <p>
+              {/* <p>
                 <span className="mdi mdi-lightbulb-on-outline mdi-24px lifeline-icon"></span>
-              </p>
+              </p> */}
             </div>
             <div className="clock">
               <p>
-                <span>1 0f 15</span>
+                <span className="text-blue-800 px-3 text-lg">
+                  {currentQuestionIndex} 0f 15
+                </span>
               </p>
 
-              <div>
-                <span>2:15</span>
-                <span className="mdi mdi-clock-outline mdi-24px"></span>
+              <div className="px-2 flex items-center g-2">
+                <span className="text-green-800 text-xl">
+                  {time.minutes}:{time.seconds}
+                </span>
+                <span className="mdi mdi-clock-outline mdi-24px  text-orange-700"></span>
               </div>
             </div>
           </div>
