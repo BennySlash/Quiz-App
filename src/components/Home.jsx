@@ -75,12 +75,7 @@ const Home = () => {
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               ></input>
 
-              <Link
-                to={instructions}
-                type="submit"
-                className="auth-buttons text-white"
-                id="login-button"
-              >
+              <Link to={instructions} type="submit" id="login-button">
                 {/* <button
                   type="submit"
                   className="auth-buttons text-white"

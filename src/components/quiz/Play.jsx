@@ -22,9 +22,9 @@ class Play extends React.Component {
       score: 0,
       correctAnswers: 0,
       wrongAnswers: 0,
-      hints: 0,
-      fiftyFifty: 0,
-      usedFiftyFifty: 0,
+      // hints: 0,
+      // fiftyFifty: 0,
+      // usedFiftyFifty: 0,
       time: {},
     };
     this.interval = null;
@@ -40,6 +40,7 @@ class Play extends React.Component {
     );
     this.startTimer();
   }
+
   displayQuestions = (
     questions = this.state.questions,
     currentQuestion,
@@ -86,13 +87,17 @@ class Play extends React.Component {
         numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion + 1,
       }),
       () => {
-        this.displayQuestions(
-          this.state.questions,
-          this.currentQuestion,
-          this.state.currentQuestion,
-          this.state.nextQuestion,
-          this.state.previousQuestion
-        );
+        if (this.state.nextQuestion === undefined) {
+          this.endQuiz();
+        } else {
+          this.displayQuestions(
+            this.state.questions,
+            this.currentQuestion,
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion
+          );
+        }
       }
     );
   };
@@ -108,16 +113,20 @@ class Play extends React.Component {
       (prevState) => ({
         wrongAnswer: prevState.wrongAnswers + 1,
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
-        numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion,
+        numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion + 1,
       }),
       () => {
-        this.displayQuestions(
-          this.state.questions,
-          this.currentQuestion,
-          this.state.currentQuestion,
-          this.state.nextQuestion,
-          this.state.previousQuestion
-        );
+        if (this.state.nextQuestion === undefined) {
+          this.endQuiz();
+        } else {
+          this.displayQuestions(
+            this.state.questions,
+            this.currentQuestion,
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion
+          );
+        }
       }
     );
   };
@@ -196,9 +205,7 @@ class Play extends React.Component {
             },
           },
           () => {
-            alert("Quiz has ended!");
-            browserHistory.push("/");
-            window.location.reload(false);
+            this.endQuiz();
           }
         );
       } else {
@@ -209,6 +216,21 @@ class Play extends React.Component {
           },
         });
       }
+    }, 1000);
+  };
+  endQuiz = () => {
+    alert("Quiz has Ended.");
+    const { state } = this;
+    const playerStats = {
+      score: state.score,
+      numberOfQuestions: state.numberOfQuestions,
+      correctAnswers: state.numberOfAnsweredQuestion,
+      wrongAnswers: state.wrongAnswers,
+    };
+    setTimeout(() => {
+      browserHistory.push("/quiz-summary", playerStats);
+      // this.props.history("/quiz-summary", playerStats);
+      window.location.reload(false);
     }, 1000);
   };
   render() {
