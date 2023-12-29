@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import M from "materialize-css";
-
 import axios from "axios";
-import { UserState } from "realm-web";
+import ParticlesBb from "./particles";
+import ParticlesBg from "./particles";
+// import { UserState } from "realm-web";
 
 const Home = () => {
   const [email, setEmail] = useState("");
@@ -46,9 +47,7 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Quize App - Home</title>
-      </Helmet>
+      <ParticlesBg />
       <div id="home">
         <section>
           <div>
