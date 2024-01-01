@@ -140,8 +140,8 @@ class QuizSummary extends Component {
     }
     return (
       <>
-        <Helmet>Quiz-App Summary</Helmet>
-        <div className="flex flex-col items-center">
+        {/* <Helmet>Quiz-App Summary</Helmet> */}
+        <div className="flex flex-col items-center bg-white sm:py-16 summary">
           {reaction}
           {stats}
         </div>

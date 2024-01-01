@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import M from "materialize-css";
 import axios from "axios";
 import ParticlesBb from "./particles";
@@ -10,16 +10,13 @@ import ParticlesBg from "./particles";
 const Home = () => {
   const [email, setEmail] = useState("");
   const [employeeEmails, setEmployeeEmails] = useState("");
-  const [instructions, setInstructions] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setPath();
-
+  const onLoad = async (event) => {
     await axios
       .get("http://localhost:4000/users")
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setEmployeeEmails(res.data);
         //   console.log(employeeEmails);
         //   console.log(email);
@@ -28,14 +25,27 @@ const Home = () => {
         console.log(err);
       });
   };
+  function handleSubmit(event) {
+    event.preventDefault();
+    setPath();
+  }
   function handleChange(event) {
     setEmail(event.target.value);
+    console.log(event.target.value);
   }
   function setPath() {
     const isPresent = employeeEmails.includes(email);
-
+    const firstNameSmall = email.split(".")[0];
+    // console.log(firstNameSmall.charAt(0).toUpperCase());
+    const firstNameCapital =
+      firstNameSmall.charAt(0).toUpperCase() + firstNameSmall.slice(1);
     if (isPresent) {
-      setInstructions("/instructions");
+      M.toast({
+        html: `Welcome ${firstNameCapital}`,
+        classes: "toast-valid",
+        displayLength: "1500",
+      });
+      navigate("/instructions");
     } else {
       M.toast({
         html: "The Email you Entered in Invalid",
@@ -48,10 +58,10 @@ const Home = () => {
   return (
     <>
       <ParticlesBg />
-      <div id="home">
+      <div id="home" onLoad={onLoad}>
         <section>
           <div>
-            <img src="./assets/img/gebeya-logo.png" alt="gebeya logo" c />
+            <img src="./assets/img/gebeya-logo.png" alt="gebeya logo" />
           </div>
           <h1>Quiz App</h1>
 
@@ -74,16 +84,17 @@ const Home = () => {
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               ></input>
 
-              <Link to={instructions} type="submit" id="login-button">
-                {/* <button
+              <button type="submit" id="login-button">
+                Login
+                {/* < to={instructions}>Login</Link> */}
+              </button>
+              {/* <button
                   type="submit"
                   className="auth-buttons text-white"
                   id="login-button"
                 >
                   Login
                 </button> */}
-                Login
-              </Link>
             </form>
             {/* <Link to="/register" className="auth-buttons" id="signup-button">
               Register

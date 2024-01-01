@@ -31,7 +31,7 @@ const ParticlesBg = () => {
     () => ({
       background: {
         color: {
-          value: "#0d47a1",
+          value: "#RRGGBBAA",
         },
       },
       fpsLimit: 120,
@@ -58,10 +58,10 @@ const ParticlesBg = () => {
       },
       particles: {
         color: {
-          value: "#ffffff",
+          value: "#7F00FF",
         },
         links: {
-          color: "#ffffff",
+          color: "#FFA500",
           distance: 150,
           enable: true,
           opacity: 0.5,
@@ -74,23 +74,23 @@ const ParticlesBg = () => {
             default: "bounce",
           },
           random: false,
-          speed: 6,
+          speed: 5,
           straight: false,
         },
         number: {
           density: {
-            enable: true,
+            enable: false,
           },
-          value: 80,
+          value: 50,
         },
         opacity: {
-          value: 0.5,
+          value: 0.7,
         },
         shape: {
-          type: "circle",
+          type: "square",
         },
         size: {
-          value: { min: 1, max: 5 },
+          value: { min: 2, max: 7 },
         },
       },
       detectRetina: true,
