@@ -1,11 +1,10 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 import questions from "../../questions.json";
 import isEmpty from "../../utils/is-empty";
 import M from "materialize-css";
-// import { BrowserHistory } from "history";
+
 import { browserHistory } from "../../main";
-// import { UseState, useEffect } from "react";
 
 class Play extends React.Component {
   constructor(props) {
@@ -219,6 +218,8 @@ class Play extends React.Component {
     }, 1000);
   };
   endQuiz = () => {
+    // const navigate = useNavigate();
+
     alert("Quiz has Ended.");
     const { state } = this;
     const playerStats = {
@@ -228,8 +229,8 @@ class Play extends React.Component {
       wrongAnswers: state.wrongAnswers,
     };
     setTimeout(() => {
+      // navigate("/quiz-summary");
       browserHistory.push("/quiz-summary", playerStats);
-      // this.props.history("/quiz-summary", playerStats);
       window.location.reload(false);
     }, 1000);
   };
@@ -238,9 +239,6 @@ class Play extends React.Component {
 
     return (
       <div>
-        <Helmet>
-          <title>Quiz Page</title>
-        </Helmet>
         <div className="questions">
           <div className="lifeline-container">
             <div className="lifeline">

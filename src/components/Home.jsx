@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Helmet } from "react-helmet";
-import { Link, useNavigate } from "react-router-dom";
+
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import M from "materialize-css";
 import axios from "axios";
-import ParticlesBb from "./particles";
+
 import ParticlesBg from "./particles";
-// import { UserState } from "realm-web";
 
 const Home = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +15,7 @@ const Home = () => {
     await axios
       .get("http://localhost:4000/users")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setEmployeeEmails(res.data);
         //   console.log(employeeEmails);
         //   console.log(email);
@@ -34,6 +33,7 @@ const Home = () => {
     console.log(event.target.value);
   }
   function setPath() {
+    // const [searchParams] = useSearchParams();
     const isPresent = employeeEmails.includes(email);
     const firstNameSmall = email.split(".")[0];
     // console.log(firstNameSmall.charAt(0).toUpperCase());
