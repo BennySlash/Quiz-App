@@ -30,7 +30,7 @@ const Home = () => {
   }
   function handleChange(event) {
     setEmail(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   }
   function setPath() {
     // const [searchParams] = useSearchParams();

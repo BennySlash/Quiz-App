@@ -15,7 +15,7 @@ class Play extends React.Component {
       nextQuestion: {},
       previousQuestion: {},
       answer: "",
-      numberOfQuestions: 0,
+      numberOfQuestions: 15,
       numberOfAnsweredQuestion: 0,
       currentQuestionIndex: 0,
       score: 0,
@@ -81,7 +81,7 @@ class Play extends React.Component {
     this.setState(
       (prevState) => ({
         score: prevState.score + 1,
-        correctAnswer: prevState.correctAnswer + 1,
+        correctAnswers: prevState.correctAnswers + 1,
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
         numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion + 1,
       }),
@@ -101,7 +101,7 @@ class Play extends React.Component {
     );
   };
   wrongAnswer = () => {
-    navigator.vibrate(1000);
+    // navigator.vibrate(1000);
     M.toast({
       html: "Wrong Answer!",
       classes: "toast-invalid",
@@ -110,9 +110,9 @@ class Play extends React.Component {
 
     this.setState(
       (prevState) => ({
-        wrongAnswer: prevState.wrongAnswers + 1,
+        wrongAnswers: prevState.wrongAnswers + 1,
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
-        numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion + 1,
+        numberOfAnsweredQuestion: prevState.numberOfAnsweredQuestion,
       }),
       () => {
         if (this.state.nextQuestion === undefined) {

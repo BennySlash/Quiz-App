@@ -8,14 +8,14 @@ class QuizSummary extends Component {
     super(props);
     this.state = {
       score: 0,
-      numberOfQuestions: 0,
+      numberOfQuestions: 15,
       correctAnswers: 0,
       wrongAnswers: 0,
     };
   }
   componentDidMount() {
     const state = browserHistory.location.state;
-    console.log(browserHistory.location.state);
+    // console.log(browserHistory.location.state);
     this.setState({
       score: (state.score / state.numberOfQuestions) * 100,
       numberOfQuestions: state.numberOfQuestions,
@@ -73,7 +73,7 @@ class QuizSummary extends Component {
           <h1>quiz has ended</h1>
           <div className="summary-container">
             <h4>{remark}</h4>
-            <h2>Your Score: {score.toFixed(0)}%</h2>
+            <h2>Your Score: {state.score.toFixed(0)}%</h2>
             <span className="stat left">Total number of question: </span>
             <span className="stat left">{state.numberOfQuestions} </span>
             <br />
