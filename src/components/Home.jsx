@@ -13,7 +13,7 @@ const Home = () => {
 
   const onLoad = async (event) => {
     await axios
-      .get("http://localhost:4000/users")
+      .get("http://localhost:4000/api/users")
       .then((res) => {
         // console.log(res.data);
         setEmployeeEmails(res.data);
@@ -24,6 +24,7 @@ const Home = () => {
         console.log(err);
       });
   };
+
   function handleSubmit(event) {
     event.preventDefault();
     setPath();
@@ -36,16 +37,22 @@ const Home = () => {
     // const [searchParams] = useSearchParams();
     const isPresent = employeeEmails.includes(email);
     const firstNameSmall = email.split(".")[0];
-    // console.log(firstNameSmall.charAt(0).toUpperCase());
+    const lastNameSmall = email.split("@")[0].split(".");
+    const lastNameCapital =
+      lastNameSmall[1].charAt(0).toUpperCase() + lastNameSmall[1].slice(1);
     const firstNameCapital =
       firstNameSmall.charAt(0).toUpperCase() + firstNameSmall.slice(1);
     if (isPresent) {
+      const fullName = `${firstNameCapital} ${lastNameCapital}`;
       M.toast({
-        html: `Welcome ${firstNameCapital}`,
+        html: `Welcome ${fullName}`,
         classes: "toast-valid",
-        displayLength: "1500",
+        displayLength: "2600",
+        inDuration: "800",
+        outDuration: "800",
       });
-      navigate("/instructions");
+
+      navigate("/instructions", { state: { fullName: fullName } });
     } else {
       M.toast({
         html: "The Email you Entered in Invalid",

@@ -1,7 +1,9 @@
 const express = require("express");
+const client = require("../utils/db");
+const { useState } = require("react");
 const router = express.Router();
 
-router.get("/users", (req, res) => {
+router.get("/api/users", (req, res) => {
   const users = [
     {
       "First Name [Required]": "Abel",
@@ -1074,5 +1076,22 @@ router.get("/users", (req, res) => {
 
   res.send(employeeEmails);
 });
+
+router.post("/api/score", async (req, res) => {
+  // try {
+  //   const db = await client.db("sample_mflix").collection("movies").findOne();
+  //   console.log(db);
+  // } catch (error) {
+  //   console.error(error);
+  // }
+  console.log(req.body);
+
+  // const score = req.body.scorePercentage;
+  // const name = req.body.fullName;
+});
+
+// router.get("/api/score", async (req, res) => {
+//   return res.json({ message: "Hello" });
+// });
 
 module.exports = router;

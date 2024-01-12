@@ -1,13 +1,25 @@
-import React, { component, Fragment } from "react";
+import React, { component, Fragment, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { set } from "mongoose";
+import { useEffect } from "react";
+import { sendDataToServer } from "../../utils/api";
 
 const QuizInstruction = () => {
+  const location = useLocation();
+
+  const [name, setName] = useState("");
+
+  console.log(name);
+
+  useEffect(() => {
+    setName(location.state.fullName.replace(" ", "_"));
+    // send();
+  }, []);
+
   return (
-    <>
-      <Helmet>
-        <title>Quiz Instruction - Quiz App </title>
-      </Helmet>
+    <div>
       <div className="p-10">
         <h1>Quiz Instructions</h1>
         <p className="pb-10">
@@ -40,7 +52,7 @@ const QuizInstruction = () => {
           Take Quiz
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 

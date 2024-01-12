@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import questions from "../../questions.json";
 import isEmpty from "../../utils/is-empty";
 import M from "materialize-css";
+import { useLocation } from "react-router-dom";
 
 import { browserHistory } from "../../main";
 
@@ -28,6 +29,7 @@ class Play extends React.Component {
     };
     this.interval = null;
   }
+
   componentDidMount() {
     const { questions, currentQuestion, nextQuestion, previousQuestion } =
       this.state;

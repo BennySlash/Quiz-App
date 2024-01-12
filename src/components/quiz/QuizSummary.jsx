@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { browserHistory } from "../../main";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { data } from "autoprefixer";
+import { sendDataToServer } from "../../utils/api";
 class QuizSummary extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +25,7 @@ class QuizSummary extends Component {
       wrongAnswers: state.wrongAnswers,
     });
   }
+
   render() {
     const state = this.state;
     const score = state.score;
@@ -31,6 +34,22 @@ class QuizSummary extends Component {
     let stats;
     let remark;
     let reaction;
+
+    // async function sendDataToServer() {
+    //   try {
+    //     const response = await axios.post("http://localhost:4000/api/score", {
+    //       scorePercentage: state.score.toFixed(0),
+    //     });
+    //     // console.log(response.data);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
+    const send = () =>
+      sendDataToServer({
+        firstName: "Bini",
+        scorePercentage: state.score.toFixed(0),
+      });
 
     if (score <= 30) {
       remark = "You need more practice.";
@@ -281,6 +300,12 @@ class QuizSummary extends Component {
         {/* <Helmet>Quiz-App Summary</Helmet> */}
         <div className="flex flex-col items-center bg-white sm:py-16 summary">
           {stats}
+          <button
+            onClick={send}
+            className="rounded-sm bg-blue-700 p-3 text-lg text-white"
+          >
+            Save Score
+          </button>
         </div>
       </>
     );
