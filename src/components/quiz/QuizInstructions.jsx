@@ -1,10 +1,7 @@
-import React, { component, Fragment, useState } from "react";
-import { Helmet } from "react-helmet";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { set } from "mongoose";
 import { useEffect } from "react";
-import { sendDataToServer } from "../../utils/api";
 
 const QuizInstruction = () => {
   const location = useLocation();
@@ -48,6 +45,7 @@ const QuizInstruction = () => {
         <Link
           className="option direction-key rounded-sm bg-blue-700 p-3 text-lg text-white "
           to="/play-quiz"
+          state={{ name: name }}
         >
           Take Quiz
         </Link>

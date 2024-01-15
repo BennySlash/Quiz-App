@@ -20,15 +20,15 @@ function QuizSummary() {
   );
 
   const [wrongAnswers, setWrongAnswers] = useState(locationState.wrongAnswers);
-
+  const [name, setName] = useState(locationState.name);
   let stats;
   let remark;
   let reaction;
 
   const send = () =>
     sendDataToServer({
-      firstName: "Bini",
-      scorePercentage: state.score.toFixed(0),
+      firstName: name,
+      scorePercentage: score.toFixed(0),
     });
 
   if (score <= 30) {

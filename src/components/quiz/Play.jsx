@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import questionsData from "../../questions.json";
 import isEmpty from "../../utils/is-empty";
 import M from "materialize-css";
-import { useLocation } from "react-router-dom";
 
 import { browserHistory } from "../../main";
-import { UserState } from "realm-web";
 
 function Play() {
   const [questions, setQuestions] = useState();
@@ -22,6 +20,9 @@ function Play() {
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const [time, setTime] = useState({});
   let interval = null;
+
+  const location = useLocation();
+  const name = location.state.name;
 
   const displayQuestions = () => {
     setQuestions(questionsData);
@@ -146,6 +147,7 @@ function Play() {
       numberOfQuestions,
       correctAnswers,
       wrongAnswers,
+      name,
     };
     setTimeout(() => {
       // navigate("/quiz-summary");
