@@ -7,8 +7,7 @@ const {
   getEmployees,
   createEmployee,
 } = require("../controllers/employeeController");
-const { isAuthenticatedAdminUser } = require("../middlewares/catchAsyncErrors");
 
-router.route("/").get(getEmployees).post(createEmployee);
+router.route("/api/employee").get(getEmployees);
 
 module.exports = router;

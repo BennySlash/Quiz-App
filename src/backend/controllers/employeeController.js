@@ -14,7 +14,7 @@ exports.getEmployees = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Create an employee => /api/employees
-exports.createEmployee = catchAsyncErrors(async (req, res, next) => {
+exports.createScore = catchAsyncErrors(async (req, res, next) => {
   const employee = await Employee.create({
     name: req.body.name,
     score: req.body.score,

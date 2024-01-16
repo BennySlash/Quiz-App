@@ -31,17 +31,20 @@ const Home = () => {
   }
   function handleChange(event) {
     setEmail(event.target.value);
-    // console.log(event.target.value);
+    console.log(event.target.value);
   }
   function setPath() {
-    // const [searchParams] = useSearchParams();
     const isPresent = employeeEmails.includes(email);
+    // console.log(isPresent);
+    // console.log(typeof email);
     const firstNameSmall = email.split(".")[0];
-    const lastNameSmall = email.split("@")[0].split(".");
-    const lastNameCapital =
-      lastNameSmall[1].charAt(0).toUpperCase() + lastNameSmall[1].slice(1);
+    console.log(firstNameSmall);
+    const lastNameSmall = email.split("@")[0].split(".")[0];
+    console.log(lastNameSmall);
     const firstNameCapital =
       firstNameSmall.charAt(0).toUpperCase() + firstNameSmall.slice(1);
+    const lastNameCapital =
+      lastNameSmall.charAt(0).toUpperCase() + lastNameSmall.slice(1);
     if (isPresent) {
       const fullName = `${firstNameCapital} ${lastNameCapital}`;
       M.toast({
@@ -88,7 +91,8 @@ const Home = () => {
                 value={email}
                 onChange={handleChange}
                 placeholder="Enter your Gebeya Email"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-center flex items-center"
+                size="30"
               ></input>
 
               <button type="submit" id="login-button">

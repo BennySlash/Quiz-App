@@ -27,7 +27,7 @@ function QuizSummary() {
 
   const send = () =>
     sendDataToServer({
-      firstName: name,
+      fullName: name,
       scorePercentage: score.toFixed(0),
     });
 

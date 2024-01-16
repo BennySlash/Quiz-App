@@ -90,7 +90,7 @@ function Play() {
   };
 
   const handleOptionClick = (e) => {
-    console.log({ answer, e: e.target.innerHTML });
+    // console.log({ answer, e: e.target.innerHTML });
     if (e.target.innerHTML.toLowerCase() === answer.toLocaleLowerCase()) {
       correctAnswer();
     } else {

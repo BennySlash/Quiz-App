@@ -1,12 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const router = require("./routes/router");
-const client = require("./utils/db");
-// const mongoose = require("mongoose");
+const scoreRouter = require("./routes/score");
+const mongoose = require("mongoose");
 
+const MONGO_URI =
+  "mongodb+srv://biniyamayele:Testing1234@cluster0.xl8ulig.mongodb.net/quiz_test?retryWrites=true&w=majority";
+
+const dotenv = require("dotenv");
 const app = express();
 
+dotenv.config({ path: "config/config.env" });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -18,17 +22,22 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use("/", router);
+app.use("/", scoreRouter);
 
-async function run() {
-  await client.connect();
-  // Send a ping to confirm a successful connection
-  await client.db("admin").command({ ping: 1 });
-  console.log("Pinged your deployment. You successfully connected to MongoDB!");
-}
-run().catch(console.dir);
+const PORT = process.env.PORT || 4000;
 
-const port = 4000;
-const server = app.listen(port, () => {
-  console.log(`port is running on port ${port}`);
+mongoose
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error);
+  });
+
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
