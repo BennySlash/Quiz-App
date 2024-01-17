@@ -39,7 +39,9 @@ const Home = () => {
     // console.log(typeof email);
     const firstNameSmall = email.split(".")[0];
     console.log(firstNameSmall);
-    const lastNameSmall = email.split("@")[0].split(".")[0];
+    const lastNameSmall = email
+      .split(".")[1]
+      .substring(0, email.split(".")[1].indexOf("@"));
     console.log(lastNameSmall);
     const firstNameCapital =
       firstNameSmall.charAt(0).toUpperCase() + firstNameSmall.slice(1);

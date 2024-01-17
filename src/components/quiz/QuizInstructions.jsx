@@ -11,8 +11,7 @@ const QuizInstruction = () => {
   console.log(name);
 
   useEffect(() => {
-    setName(location.state.fullName.replace(" ", "_"));
-    // send();
+    setName(location.state.fullName);
   }, []);
 
   return (
