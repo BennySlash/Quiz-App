@@ -3,13 +3,15 @@ import Home from "./components/Home";
 import QuizInstruction from "./components/quiz/QuizInstructions";
 import Play from "./components/quiz/Play";
 import QuizSummary from "./components/quiz/QuizSummary";
-import AdminConsole from "./components/AdminConsole";
+import AdminLogin from "./components/admin/AdminLogin";
+import AdminConsole from "./components/admin/AdminConsole";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-console" element={<AdminConsole />} />
         <Route path="/instructions" element={<QuizInstruction />} />
         <Route path="/play-quiz" element={<Play />} />

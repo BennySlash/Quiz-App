@@ -31,7 +31,7 @@ const Home = () => {
   }
   function handleChange(event) {
     setEmail(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   }
   function setPath() {
     const isPresent = employeeEmails.includes(email);
@@ -56,7 +56,6 @@ const Home = () => {
         inDuration: "800",
         outDuration: "800",
       });
-
       navigate("/instructions", { state: { fullName: fullName } });
     } else {
       M.toast({
@@ -67,29 +66,33 @@ const Home = () => {
     }
   }
 
-  const adminConsole = () => {
-    const adminPassword = prompt("Enter Admin Password");
-    if (adminPassword === "quiz@Admin") {
-      M.toast({
-        html: "Welcome Admin",
-        classes: "toast-valid",
-        displayLength: "2600",
-        inDuration: "800",
-        outDuration: "800",
-      });
-      navigate("/admin-console");
-    } else if (adminPassword === null) {
-      return redirect("/");
-    } else if (adminPassword !== "quiz@Admin") {
-      M.toast({
-        html: "Incorrect Password",
-        classes: "toast-invalid",
-        displayLength: "2600",
-        inDuration: "800",
-        outDuration: "800",
-      });
-      return redirect("/");
-    }
+  // const adminConsole = () => {
+  //   const adminPassword = prompt("Enter Admin Password");
+  //   if (adminPassword === "quiz@Admin") {
+  //     M.toast({
+  //       html: "Welcome Admin",
+  //       classes: "toast-valid",
+  //       displayLength: "2600",
+  //       inDuration: "800",
+  //       outDuration: "800",
+  //     });
+  //     navigate("/admin-console");
+  //   } else if (adminPassword === null) {
+  //     return redirect("/");
+  //   } else if (adminPassword !== "quiz@Admin") {
+  //     M.toast({
+  //       html: "Incorrect Password",
+  //       classes: "toast-invalid",
+  //       displayLength: "2600",
+  //       inDuration: "800",
+  //       outDuration: "800",
+  //     });
+  //     return redirect("/");
+  //   }
+  // };
+  const adminConsole = (event) => {
+    event.preventDefault();
+    navigate("/admin-login");
   };
   return (
     <>

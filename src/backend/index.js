@@ -5,12 +5,12 @@ const scoreRouter = require("./routes/score");
 const mongoose = require("mongoose");
 
 const MONGO_URI =
-  "mongodb+srv://biniyamayele:Testing1234@cluster0.xl8ulig.mongodb.net/quiz_test?retryWrites=true&w=majority";
+  "mongodb+srv://biniyamayele:Testing1234@cluster0.xl8ulig.mongodb.net/";
 
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 const app = express();
 
-dotenv.config({ path: "config/config.env" });
+// dotenv.config({ path: "config/config.env" });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

@@ -1,5 +1,5 @@
 const AdminConsole = () => {
-  return <div>abebe beso bela</div>;
+  return <h1>abebe beso bela</h1>;
 };
 
 export default AdminConsole;
