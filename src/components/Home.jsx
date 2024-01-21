@@ -98,13 +98,17 @@ const Home = () => {
     <>
       <ParticlesBg />
 
-      <div id="home" onLoad={onLoad}>
+      <div
+        id="home"
+        onLoad={onLoad}
+        className="bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700"
+      >
         <section>
           <button
             onClick={adminConsole}
             data-ripple-light="true"
             data-popover-target="menu"
-            className="flex self-end middle none center mr-3 rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="flex self-end middle none center mr-3 rounded-lg bg-gradient-to-tr from-orange-600 to-orange-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-lg shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             Admin
           </button>
@@ -180,7 +184,11 @@ const Home = () => {
                 size="30"
               ></input>
 
-              <button type="submit" id="login-button">
+              <button
+                className="bg-gradient-to-tr from-purple-600 to-purple-400 shadow-lg shadow-purple-500/20 transition-all hover:shadow-lg hover:shadow-purple-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="submit"
+                id="login-button"
+              >
                 Login
                 {/* < to={instructions}>Login</Link> */}
               </button>

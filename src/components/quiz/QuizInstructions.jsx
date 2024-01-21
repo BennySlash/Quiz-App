@@ -8,7 +8,7 @@ const QuizInstruction = () => {
 
   const [name, setName] = useState("");
 
-  console.log(name);
+  // console.log(name);
 
   useEffect(() => {
     setName(location.state.fullName);

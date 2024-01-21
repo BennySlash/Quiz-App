@@ -7,8 +7,6 @@ export async function sendDataToServer(body) {
     const response = await axios.post(`${BASE_URL}/score`, body);
 
     return response.data;
-
-    // console.log(response.data);
   } catch (error) {
     console.error(error);
   }
