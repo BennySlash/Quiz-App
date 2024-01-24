@@ -1,36 +1,65 @@
-import React, { Component, useEffect, useState } from "react";
-import { browserHistory } from "../../main";
-import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { data } from "autoprefixer";
+import React, { useState } from "react";
+// import { browserHistory } from "../../main";
+import { Link, useLocation } from "react-router-dom";
 import { sendDataToServer } from "../../utils/api";
+import { sendDataToBackend } from "../admin/utils/api";
 
 function QuizSummary() {
-  const locationState = browserHistory.location.state;
+  // const locationState = browserHistory.location.state;
+  const location = useLocation();
+  const [displayCheck, setDisplayCheck] = useState(false);
+  const [displayComparison, setDisplayComparison] = useState(false);
+  const [comparison, setComparison] = useState("");
+
   const [score, setScore] = useState(
-    (locationState.score / locationState.numberOfQuestions) * 100
+    (location.state.stats.score / location.state.stats.numberOfQuestions) * 100
   );
   const [numberOfQuestions, setNumberOfQuestions] = useState(
-    locationState.numberOfQuestions
+    location.state.stats.numberOfQuestions
   );
 
   const [correctAnswers, setCorrectAnswers] = useState(
-    locationState.correctAnswers
+    location.state.stats.correctAnswers
   );
 
-  const [wrongAnswers, setWrongAnswers] = useState(locationState.wrongAnswers);
-  const [name, setName] = useState(locationState.name);
+  const [wrongAnswers, setWrongAnswers] = useState(
+    location.state.stats.wrongAnswers
+  );
+  const [name, setName] = useState(location.state.stats.name);
   let stats;
   let remark;
   let reaction;
 
-  const send = () =>
-    sendDataToServer({
-      fullName: name,
-      scorePercentage: score.toFixed(0),
-    });
+  const send = async (body) => {
+    const res = await sendDataToServer(body);
+    setDisplayCheck(true);
+  };
+  const post = async (body) => {
+    const res = await sendDataToBackend(body);
+    const check = res.checkEmployeeScoreName;
+    const lastScore = check[check.length - 2].score;
+    setDisplayCheck(true);
 
+    if (score > lastScore) {
+      setComparison(
+        <div className="mt-5">
+          <p>
+            Your last score was {lastScore}. You have made an improvement. Keep
+            it up!
+          </p>
+        </div>
+      );
+    } else if (score <= lastScore) {
+      setComparison(
+        <div className="mt-5">
+          <p>
+            Your last score was {lastScore}. You did not improve your score.
+            Keep it up!
+          </p>
+        </div>
+      );
+    }
+  };
   if (score <= 30) {
     remark = "You need more practice.";
     reaction = (
@@ -41,13 +70,13 @@ function QuizSummary() {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               className="h-8 w-8 text-white"
             >
               <path
-                // stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M4.5 12.75l6 6 9-13.5"
               />
             </svg>
@@ -58,13 +87,13 @@ function QuizSummary() {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
             className="text-red-300 w-20 h-20"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
             />
           </svg>
@@ -85,13 +114,13 @@ function QuizSummary() {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               className="h-8 w-8 text-white"
             >
               <path
-                // stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M4.5 12.75l6 6 9-13.5"
               />
             </svg>
@@ -102,13 +131,13 @@ function QuizSummary() {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
             className="text-red-300 w-20 h-20"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
             />
           </svg>
@@ -127,13 +156,13 @@ function QuizSummary() {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke="currentColor"
           className="text-gray-400 w-20 h-20"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             d="M15.182 15.182a25.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
           />
         </svg>
@@ -151,13 +180,13 @@ function QuizSummary() {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke="currentColor"
           className="text-green-400 w-20 h-20"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
           />
         </svg>
@@ -175,13 +204,13 @@ function QuizSummary() {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke="currentColor"
           className="text-green-400 w-20 h-20"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
           />
         </svg>
@@ -194,13 +223,13 @@ function QuizSummary() {
   }
   return (
     <>
-      {/* <Helmet>Quiz-App Summary</Helmet> */}
-      <div className="flex flex-col items-center bg-white sm:py-16 summary">
+      <div className="flex flex-col items-center bg-white sm:py-16 summary ">
         <>
-          <h1>Quiz has ended.</h1>
+          <h1>Quiz has ended</h1>
 
           {reaction}
-          <div className="summary-container">
+
+          <div className="summary-container my-10">
             <h4>{remark}</h4>
             <h2>Your Score: {score.toFixed(0)}%</h2>
             <span className="stat left">Total number of question: </span>
@@ -215,34 +244,49 @@ function QuizSummary() {
             <span className="stat left">Wrong Answers: </span>
             <span className=" mx-5  stat left">{wrongAnswers}</span>
           </div>
-          <section>
-            <ul className="m-10 flex">
-              <li className="m-10">
-                <Link
-                  to="/"
-                  className="rounded-sm bg-blue-700 p-3 text-lg text-white"
-                >
-                  Back to Home
-                </Link>
-              </li>
-
-              <li className="m-10">
-                <Link
-                  to="/play-quiz"
-                  className="rounded-sm bg-blue-700 p-3 text-lg text-white"
-                >
-                  Take Quiz Again
-                </Link>
-              </li>
-            </ul>
-          </section>
         </>
-        <button
-          onClick={send}
-          className="rounded-sm bg-blue-700 p-3 text-lg text-white"
-        >
-          Save Score
-        </button>
+        {!displayCheck && (
+          <button
+            onClick={() =>
+              send({ fullName: name, scorePercentage: score.toFixed(0) })
+            }
+            className="rounded-lg bg-blue-700 p-3 text-lg text-white font-sans text-xs font-bold uppercase text-white shadow-lg shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            Save Score
+          </button>
+        )}
+
+        {displayCheck && (
+          <button
+            onClick={() => post({ fullName: name })}
+            className="rounded-lg bg-blue-700 p-3 mt-5 text-lg text-white font-sans text-xs font-bold uppercase text-white shadow-lg shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            Check Your Progress
+          </button>
+        )}
+        <section>
+          {comparison}
+          <ul className="m-10 flex">
+            <li className="m-10">
+              <Link
+                to="/"
+                className="rounded-lg bg-blue-700 p-3 text-lg text-white font-sans text-xs font-bold uppercase text-white shadow-lg shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              >
+                Back to Home
+              </Link>
+            </li>
+
+            <li className="m-10">
+              <Link
+                to="/play-quiz"
+                state={{ name: name }}
+                className="rounded-lg bg-blue-700 p-3 text-lg text-white font-sans text-xs font-bold uppercase text-white shadow-lg shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              >
+                Take Quiz Again
+              </Link>
+            </li>
+          </ul>
+        </section>
       </div>
     </>
   );

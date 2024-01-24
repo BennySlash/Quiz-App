@@ -23,6 +23,7 @@ function Play() {
 
   const location = useLocation();
   const name = location.state.name;
+  const navigate = useNavigate();
 
   const displayQuestions = () => {
     setQuestions(questionsData);
@@ -84,8 +85,9 @@ function Play() {
 
   const handleQuitButton = () => {
     if (window.confirm("Are you sure you want to Quit?")) {
-      browserHistory.push("/");
-      window.location.reload(false);
+      // browserHistory.push("/");
+      // window.location.reload(false);
+      navigate("/");
     }
   };
 
@@ -138,8 +140,6 @@ function Play() {
     }, 1000);
   };
   const endQuiz = () => {
-    // const navigate = useNavigate();
-
     alert("Quiz has Ended.");
 
     const playerStats = {
@@ -150,9 +150,9 @@ function Play() {
       name,
     };
     setTimeout(() => {
-      // navigate("/quiz-summary");
-      browserHistory.push("/quiz-summary", playerStats);
-      window.location.reload(false);
+      navigate("/quiz-summary", { state: { stats: playerStats } });
+      // browserHistory.push("/quiz-summary", playerStats);
+      // window.location.reload(false);
     }, 1000);
   };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Link, redirect, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import M from "materialize-css";
 import axios from "axios";
 
@@ -38,11 +38,11 @@ const Home = () => {
     // console.log(isPresent);
     // console.log(typeof email);
     const firstNameSmall = email.split(".")[0];
-    console.log(firstNameSmall);
+    // console.log(firstNameSmall);
     const lastNameSmall = email
       .split(".")[1]
       .substring(0, email.split(".")[1].indexOf("@"));
-    console.log(lastNameSmall);
+    // console.log(lastNameSmall);
     const firstNameCapital =
       firstNameSmall.charAt(0).toUpperCase() + firstNameSmall.slice(1);
     const lastNameCapital =
