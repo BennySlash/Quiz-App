@@ -38,11 +38,11 @@ function QuizSummary() {
     const res = await sendDataToBackend(body);
     const check = res.checkEmployeeScoreName;
     const lastScore = check[check.length - 2].score;
-    setDisplayCheck(true);
+    setDisplayComparison(true);
 
     if (score > lastScore) {
       setComparison(
-        <div className="mt-5">
+        <div className="mt-5 text-lg">
           <p>
             Your last score was {lastScore}. You have made an improvement. Keep
             it up!
@@ -51,7 +51,7 @@ function QuizSummary() {
       );
     } else if (score <= lastScore) {
       setComparison(
-        <div className="mt-5">
+        <div className="mt-5 text-lg">
           <p>
             Your last score was {lastScore}. You did not improve your score.
             Keep it up!
@@ -223,13 +223,13 @@ function QuizSummary() {
   }
   return (
     <>
-      <div className="flex flex-col items-center bg-white sm:py-16 summary ">
+      <div className="flex flex-col items-center bg-slate-800 text-white sm:py-16 summary ">
         <>
           <h1>Quiz has ended</h1>
 
           {reaction}
 
-          <div className="summary-container my-10">
+          <div className="summary-container my-10 flex flex-col">
             <h4>{remark}</h4>
             <h2>Your Score: {score.toFixed(0)}%</h2>
             <span className="stat left">Total number of question: </span>
@@ -265,7 +265,7 @@ function QuizSummary() {
           </button>
         )}
         <section>
-          {comparison}
+          {displayComparison && comparison}
           <ul className="m-10 flex">
             <li className="m-10">
               <Link

@@ -16,7 +16,7 @@ const QuizInstruction = () => {
 
   return (
     <div>
-      <div className="p-10">
+      <div className="p-10 bg-white rounded-lg">
         <h1>Quiz Instructions</h1>
         <p className="pb-10">
           The quizzes consists of questions carefully designed to help you

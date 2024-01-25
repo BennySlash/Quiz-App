@@ -26,11 +26,11 @@ function Play() {
   const navigate = useNavigate();
 
   const displayQuestions = () => {
-    setQuestions(questionsData);
+    // setQuestions(questionsData);
+    console.log(score);
     setCurrentQuestion(questionsData[currentQuestionIndex]);
-    setNextQuestion(questionsData[currentQuestionIndex + 1]);
-    setPreviousQuestion(questionsData[currentQuestionIndex - 1]);
-    setAnswer(questionsData[currentQuestionIndex].answer);
+    // setNextQuestion(questionsData[currentQuestionIndex + 1]);
+    // setPreviousQuestion(questionsData[currentQuestionIndex - 1]);
   };
 
   const correctAnswer = () => {
@@ -41,9 +41,11 @@ function Play() {
     });
 
     setScore((prevState) => prevState + 1);
+
     setCorrectAnswers((prevState) => prevState + 1);
     setCurrentQuestionIndex((prevState) => prevState + 1);
     setNumberOfAnsweredQuestion((prevState) => prevState + 1);
+
     if (nextQuestion === undefined) {
       endQuiz();
     } else {
@@ -91,9 +93,11 @@ function Play() {
     }
   };
 
-  const handleOptionClick = (e) => {
-    // console.log({ answer, e: e.target.innerHTML });
-    if (e.target.innerHTML.toLowerCase() === answer.toLocaleLowerCase()) {
+  const handleOptionClick = (body) => {
+    // console.log(body.state);
+    const e = body.event.target.innerHTML;
+    // console.log(e);
+    if (e.toLowerCase() === answer.toLocaleLowerCase()) {
       correctAnswer();
     } else {
       wrongAnswer();
@@ -157,6 +161,11 @@ function Play() {
   };
 
   useEffect(() => {
+    setAnswer(questionsData[currentQuestionIndex].answer);
+    setScore((prevState) => prevState + 1);
+    setCorrectAnswers((prevState) => prevState + 1);
+    setCurrentQuestionIndex((prevState) => prevState + 1);
+    setNumberOfAnsweredQuestion((prevState) => prevState + 1);
     displayQuestions();
     startTimer();
   }, []);
@@ -193,13 +202,33 @@ function Play() {
         <div className="option">
           <div className="options-container">
             <p
-              onClick={handleOptionClick}
+              onClick={() =>
+                handleOptionClick({
+                  event: event,
+                  state: {
+                    index: currentQuestionIndex,
+                    score: score,
+                    correctAnswer: correctAnswer,
+                    wrongAnswer: wrongAnswer,
+                  },
+                })
+              }
               className="option rounded-md bg-blue-700 p-3 text-lg text-white"
             >
               {currentQuestion.optionA}
             </p>
             <p
-              onClick={handleOptionClick}
+              onClick={() =>
+                handleOptionClick({
+                  event: event,
+                  state: {
+                    index: currentQuestionIndex,
+                    score: score,
+                    correctAnswer: correctAnswer,
+                    wrongAnswer: wrongAnswer,
+                  },
+                })
+              }
               className="option rounded-md bg-blue-700 p-3 text-lg text-white"
             >
               {currentQuestion.optionB}
@@ -207,13 +236,33 @@ function Play() {
           </div>
           <div className="options-container">
             <p
-              onClick={handleOptionClick}
+              onClick={() =>
+                handleOptionClick({
+                  event: event,
+                  state: {
+                    index: currentQuestionIndex,
+                    score: score,
+                    correctAnswer: correctAnswer,
+                    wrongAnswer: wrongAnswer,
+                  },
+                })
+              }
               className="option rounded-md bg-blue-700 p-3 text-lg text-white"
             >
               {currentQuestion.optionC}
             </p>
             <p
-              onClick={handleOptionClick}
+              onClick={() =>
+                handleOptionClick({
+                  event: event,
+                  state: {
+                    index: currentQuestionIndex,
+                    score: score,
+                    correctAnswer: correctAnswer,
+                    wrongAnswer: wrongAnswer,
+                  },
+                })
+              }
               className="option rounded-md bg-blue-700 p-3 text-lg text-white"
             >
               {currentQuestion.optionD}
