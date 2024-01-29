@@ -31,6 +31,7 @@ function Play() {
     setCurrentQuestion(questionsData[currentQuestionIndex]);
     setNextQuestion(questionsData[currentQuestionIndex + 1]);
     setPreviousQuestion(questionsData[currentQuestionIndex - 1]);
+    setAnswer(questionsData[currentQuestionIndex].answer);
   };
 
   const correctAnswer = () => {
@@ -162,11 +163,13 @@ function Play() {
   };
 
   useEffect(() => {
-    // setAnswer(questionsData[currentQuestionIndex].answer);
-    // setScore((prevState) => prevState + 1);
-    // setCorrectAnswers((prevState) => prevState + 1);
-    // setCurrentQuestionIndex((prevState) => prevState + 1);
-    // setNumberOfAnsweredQuestion((prevState) => prevState + 1);
+    setAnswer(questionsData[currentQuestionIndex].answer);
+    setScore((prevState) => prevState + 1);
+    setCorrectAnswers((prevState) => prevState + 1);
+    setCurrentQuestionIndex((prevState) => prevState + 1);
+    setNumberOfAnsweredQuestion((prevState) => prevState + 1);
+    setWrongAnswers((prevState) => prevState + 1);
+
     displayQuestions();
     startTimer();
   }, []);
