@@ -26,11 +26,11 @@ function Play() {
   const navigate = useNavigate();
 
   const displayQuestions = () => {
-    // setQuestions(questionsData);
+    setQuestions(questionsData);
     console.log(score);
     setCurrentQuestion(questionsData[currentQuestionIndex]);
-    // setNextQuestion(questionsData[currentQuestionIndex + 1]);
-    // setPreviousQuestion(questionsData[currentQuestionIndex - 1]);
+    setNextQuestion(questionsData[currentQuestionIndex + 1]);
+    setPreviousQuestion(questionsData[currentQuestionIndex - 1]);
   };
 
   const correctAnswer = () => {
@@ -94,7 +94,8 @@ function Play() {
   };
 
   const handleOptionClick = (body) => {
-    // console.log(body.state);
+    console.log({ answer, e: body.event.target.innerHTML });
+
     const e = body.event.target.innerHTML;
     // console.log(e);
     if (e.toLowerCase() === answer.toLocaleLowerCase()) {
@@ -161,11 +162,11 @@ function Play() {
   };
 
   useEffect(() => {
-    setAnswer(questionsData[currentQuestionIndex].answer);
-    setScore((prevState) => prevState + 1);
-    setCorrectAnswers((prevState) => prevState + 1);
-    setCurrentQuestionIndex((prevState) => prevState + 1);
-    setNumberOfAnsweredQuestion((prevState) => prevState + 1);
+    // setAnswer(questionsData[currentQuestionIndex].answer);
+    // setScore((prevState) => prevState + 1);
+    // setCorrectAnswers((prevState) => prevState + 1);
+    // setCurrentQuestionIndex((prevState) => prevState + 1);
+    // setNumberOfAnsweredQuestion((prevState) => prevState + 1);
     displayQuestions();
     startTimer();
   }, []);
